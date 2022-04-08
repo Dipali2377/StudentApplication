@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Student_ApplicatinDBModelStoreContainer" CdmEntityContainer="Student_ApplicatinDBEntities">
+    <EntitySetMapping Name="Course_Details">
+      <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Course_Details">
+        <MappingFragment StoreEntitySet="Course_Details">
+          <ScalarProperty Name="course_id" ColumnName="course_id" />
+          <ScalarProperty Name="course_name" ColumnName="course_name" />
+          <ScalarProperty Name="total_duration" ColumnName="total_duration" />
+          <ScalarProperty Name="total_fees" ColumnName="total_fees" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Student_Details">
+      <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Details">
+        <MappingFragment StoreEntitySet="Student_Details">
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="student_code" ColumnName="student_code" />
+          <ScalarProperty Name="email_address" ColumnName="email_address" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+          <ScalarProperty Name="local_address" ColumnName="local_address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Student_Payments">
+      <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Payments">
+        <MappingFragment StoreEntitySet="Student_Payments">
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+          <ScalarProperty Name="registration_id" ColumnName="registration_id" />
+          <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+          <ScalarProperty Name="payment_amount" ColumnName="payment_amount" />
+          <ScalarProperty Name="payement_mode" ColumnName="payement_mode" />
+          <ScalarProperty Name="payment_for" ColumnName="payment_for" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Student_Qualification">
+      <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Qualification">
+        <MappingFragment StoreEntitySet="Student_Qualification">
+          <ScalarProperty Name="qualification_id" ColumnName="qualification_id" />
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="qualification" ColumnName="qualification" />
+          <ScalarProperty Name="university" ColumnName="university" />
+          <ScalarProperty Name="passing_year" ColumnName="passing_year" />
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Student_Registration">
+      <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Registration">
+        <MappingFragment StoreEntitySet="Student_Registration">
+          <ScalarProperty Name="registration_id" ColumnName="registration_id" />
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="registration_code" ColumnName="registration_code" />
+          <ScalarProperty Name="course_id" ColumnName="course_id" />
+          <ScalarProperty Name="registration_date" ColumnName="registration_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

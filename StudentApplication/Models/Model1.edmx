@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Student_ApplicatinDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course_Details">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="int" Nullable="false" />
+          <Property Name="course_name" Type="varchar" MaxLength="100" />
+          <Property Name="total_duration" Type="varchar" MaxLength="100" />
+          <Property Name="total_fees" Type="float" />
+        </EntityType>
+        <EntityType Name="Student_Details">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="100" />
+          <Property Name="middle_name" Type="varchar" MaxLength="100" />
+          <Property Name="last_name" Type="varchar" MaxLength="100" />
+          <Property Name="student_code" Type="int" />
+          <Property Name="email_address" Type="varchar" MaxLength="100" />
+          <Property Name="mobile" Type="varchar" MaxLength="100" />
+          <Property Name="birth_date" Type="date" />
+          <Property Name="local_address" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Student_Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="int" Nullable="false" />
+          <Property Name="registration_id" Type="int" />
+          <Property Name="payment_date" Type="date" />
+          <Property Name="payment_amount" Type="float" />
+          <Property Name="payement_mode" Type="varchar" MaxLength="100" />
+          <Property Name="payment_for" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Student_Qualification">
+          <Key>
+            <PropertyRef Name="qualification_id" />
+          </Key>
+          <Property Name="qualification_id" Type="int" Nullable="false" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="qualification" Type="varchar" MaxLength="100" />
+          <Property Name="university" Type="varchar" MaxLength="100" />
+          <Property Name="passing_year" Type="int" />
+          <Property Name="percentage" Type="float" />
+        </EntityType>
+        <EntityType Name="Student_Registration">
+          <Key>
+            <PropertyRef Name="registration_id" />
+          </Key>
+          <Property Name="registration_id" Type="int" Nullable="false" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="registration_code" Type="int" />
+          <Property Name="course_id" Type="int" />
+          <Property Name="registration_date" Type="date" />
+        </EntityType>
+        <Association Name="fkcid">
+          <End Role="Course_Details" Type="Self.Course_Details" Multiplicity="0..1" />
+          <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course_Details">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="Student_Registration">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkid">
+          <End Role="Student_Details" Type="Self.Student_Details" Multiplicity="0..1" />
+          <End Role="Student_Qualification" Type="Self.Student_Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Details">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Student_Qualification">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkreg">
+          <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="0..1" />
+          <End Role="Student_Payments" Type="Self.Student_Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Registration">
+              <PropertyRef Name="registration_id" />
+            </Principal>
+            <Dependent Role="Student_Payments">
+              <PropertyRef Name="registration_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkrig">
+          <End Role="Student_Details" Type="Self.Student_Details" Multiplicity="0..1" />
+          <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Details">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Student_Registration">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Student_ApplicatinDBModelStoreContainer">
+          <EntitySet Name="Course_Details" EntityType="Self.Course_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Details" EntityType="Self.Student_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Payments" EntityType="Self.Student_Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Qualification" EntityType="Self.Student_Qualification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Registration" EntityType="Self.Student_Registration" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fkcid" Association="Self.fkcid">
+            <End Role="Course_Details" EntitySet="Course_Details" />
+            <End Role="Student_Registration" EntitySet="Student_Registration" />
+          </AssociationSet>
+          <AssociationSet Name="fkid" Association="Self.fkid">
+            <End Role="Student_Details" EntitySet="Student_Details" />
+            <End Role="Student_Qualification" EntitySet="Student_Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="fkreg" Association="Self.fkreg">
+            <End Role="Student_Registration" EntitySet="Student_Registration" />
+            <End Role="Student_Payments" EntitySet="Student_Payments" />
+          </AssociationSet>
+          <AssociationSet Name="fkrig" Association="Self.fkrig">
+            <End Role="Student_Details" EntitySet="Student_Details" />
+            <End Role="Student_Registration" EntitySet="Student_Registration" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Student_ApplicatinDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course_Details">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="Int32" Nullable="false" />
+          <Property Name="course_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="total_duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="total_fees" Type="Double" />
+          <NavigationProperty Name="Student_Registration" Relationship="Self.fkcid" FromRole="Course_Details" ToRole="Student_Registration" />
+        </EntityType>
+        <EntityType Name="Student_Details">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="middle_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="student_code" Type="Int32" />
+          <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="birth_date" Type="DateTime" Precision="0" />
+          <Property Name="local_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student_Qualification" Relationship="Self.fkid" FromRole="Student_Details" ToRole="Student_Qualification" />
+          <NavigationProperty Name="Student_Registration" Relationship="Self.fkrig" FromRole="Student_Details" ToRole="Student_Registration" />
+        </EntityType>
+        <EntityType Name="Student_Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Int32" Nullable="false" />
+          <Property Name="registration_id" Type="Int32" />
+          <Property Name="payment_date" Type="DateTime" Precision="0" />
+          <Property Name="payment_amount" Type="Double" />
+          <Property Name="payement_mode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="payment_for" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student_Registration" Relationship="Self.fkreg" FromRole="Student_Payments" ToRole="Student_Registration" />
+        </EntityType>
+        <EntityType Name="Student_Qualification">
+          <Key>
+            <PropertyRef Name="qualification_id" />
+          </Key>
+          <Property Name="qualification_id" Type="Int32" Nullable="false" />
+          <Property Name="student_id" Type="Int32" />
+          <Property Name="qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="university" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="passing_year" Type="Int32" />
+          <Property Name="percentage" Type="Double" />
+          <NavigationProperty Name="Student_Details" Relationship="Self.fkid" FromRole="Student_Qualification" ToRole="Student_Details" />
+        </EntityType>
+        <EntityType Name="Student_Registration">
+          <Key>
+            <PropertyRef Name="registration_id" />
+          </Key>
+          <Property Name="registration_id" Type="Int32" Nullable="false" />
+          <Property Name="student_id" Type="Int32" />
+          <Property Name="registration_code" Type="Int32" />
+          <Property Name="course_id" Type="Int32" />
+          <Property Name="registration_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Course_Details" Relationship="Self.fkcid" FromRole="Student_Registration" ToRole="Course_Details" />
+          <NavigationProperty Name="Student_Details" Relationship="Self.fkrig" FromRole="Student_Registration" ToRole="Student_Details" />
+          <NavigationProperty Name="Student_Payments" Relationship="Self.fkreg" FromRole="Student_Registration" ToRole="Student_Payments" />
+        </EntityType>
+        <Association Name="fkcid">
+          <End Role="Course_Details" Type="Self.Course_Details" Multiplicity="0..1" />
+          <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course_Details">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="Student_Registration">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkid">
+          <End Role="Student_Details" Type="Self.Student_Details" Multiplicity="0..1" />
+          <End Role="Student_Qualification" Type="Self.Student_Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Details">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Student_Qualification">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkrig">
+          <End Role="Student_Details" Type="Self.Student_Details" Multiplicity="0..1" />
+          <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Details">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Student_Registration">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkreg">
+          <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="0..1" />
+          <End Role="Student_Payments" Type="Self.Student_Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Registration">
+              <PropertyRef Name="registration_id" />
+            </Principal>
+            <Dependent Role="Student_Payments">
+              <PropertyRef Name="registration_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Student_ApplicatinDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Course_Details" EntityType="Self.Course_Details" />
+          <EntitySet Name="Student_Details" EntityType="Self.Student_Details" />
+          <EntitySet Name="Student_Payments" EntityType="Self.Student_Payments" />
+          <EntitySet Name="Student_Qualification" EntityType="Self.Student_Qualification" />
+          <EntitySet Name="Student_Registration" EntityType="Self.Student_Registration" />
+          <AssociationSet Name="fkcid" Association="Self.fkcid">
+            <End Role="Course_Details" EntitySet="Course_Details" />
+            <End Role="Student_Registration" EntitySet="Student_Registration" />
+          </AssociationSet>
+          <AssociationSet Name="fkid" Association="Self.fkid">
+            <End Role="Student_Details" EntitySet="Student_Details" />
+            <End Role="Student_Qualification" EntitySet="Student_Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="fkrig" Association="Self.fkrig">
+            <End Role="Student_Details" EntitySet="Student_Details" />
+            <End Role="Student_Registration" EntitySet="Student_Registration" />
+          </AssociationSet>
+          <AssociationSet Name="fkreg" Association="Self.fkreg">
+            <End Role="Student_Registration" EntitySet="Student_Registration" />
+            <End Role="Student_Payments" EntitySet="Student_Payments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Student_ApplicatinDBModelStoreContainer" CdmEntityContainer="Student_ApplicatinDBEntities">
+          <EntitySetMapping Name="Course_Details">
+            <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Course_Details">
+              <MappingFragment StoreEntitySet="Course_Details">
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="total_duration" ColumnName="total_duration" />
+                <ScalarProperty Name="total_fees" ColumnName="total_fees" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Details">
+            <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Details">
+              <MappingFragment StoreEntitySet="Student_Details">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="student_code" ColumnName="student_code" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="local_address" ColumnName="local_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Payments">
+            <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Payments">
+              <MappingFragment StoreEntitySet="Student_Payments">
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="registration_id" ColumnName="registration_id" />
+                <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+                <ScalarProperty Name="payment_amount" ColumnName="payment_amount" />
+                <ScalarProperty Name="payement_mode" ColumnName="payement_mode" />
+                <ScalarProperty Name="payment_for" ColumnName="payment_for" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Qualification">
+            <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Qualification">
+              <MappingFragment StoreEntitySet="Student_Qualification">
+                <ScalarProperty Name="qualification_id" ColumnName="qualification_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+                <ScalarProperty Name="university" ColumnName="university" />
+                <ScalarProperty Name="passing_year" ColumnName="passing_year" />
+                <ScalarProperty Name="percentage" ColumnName="percentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Registration">
+            <EntityTypeMapping TypeName="Student_ApplicatinDBModel.Student_Registration">
+              <MappingFragment StoreEntitySet="Student_Registration">
+                <ScalarProperty Name="registration_id" ColumnName="registration_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="registration_code" ColumnName="registration_code" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

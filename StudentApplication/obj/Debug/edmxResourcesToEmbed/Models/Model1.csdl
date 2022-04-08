@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Student_ApplicatinDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Course_Details">
+    <Key>
+      <PropertyRef Name="course_id" />
+    </Key>
+    <Property Name="course_id" Type="Int32" Nullable="false" />
+    <Property Name="course_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="total_duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="total_fees" Type="Double" />
+    <NavigationProperty Name="Student_Registration" Relationship="Self.fkcid" FromRole="Course_Details" ToRole="Student_Registration" />
+  </EntityType>
+  <EntityType Name="Student_Details">
+    <Key>
+      <PropertyRef Name="student_id" />
+    </Key>
+    <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="middle_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="student_code" Type="Int32" />
+    <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="birth_date" Type="DateTime" Precision="0" />
+    <Property Name="local_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Student_Qualification" Relationship="Self.fkid" FromRole="Student_Details" ToRole="Student_Qualification" />
+    <NavigationProperty Name="Student_Registration" Relationship="Self.fkrig" FromRole="Student_Details" ToRole="Student_Registration" />
+  </EntityType>
+  <EntityType Name="Student_Payments">
+    <Key>
+      <PropertyRef Name="payment_id" />
+    </Key>
+    <Property Name="payment_id" Type="Int32" Nullable="false" />
+    <Property Name="registration_id" Type="Int32" />
+    <Property Name="payment_date" Type="DateTime" Precision="0" />
+    <Property Name="payment_amount" Type="Double" />
+    <Property Name="payement_mode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="payment_for" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Student_Registration" Relationship="Self.fkreg" FromRole="Student_Payments" ToRole="Student_Registration" />
+  </EntityType>
+  <EntityType Name="Student_Qualification">
+    <Key>
+      <PropertyRef Name="qualification_id" />
+    </Key>
+    <Property Name="qualification_id" Type="Int32" Nullable="false" />
+    <Property Name="student_id" Type="Int32" />
+    <Property Name="qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="university" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="passing_year" Type="Int32" />
+    <Property Name="percentage" Type="Double" />
+    <NavigationProperty Name="Student_Details" Relationship="Self.fkid" FromRole="Student_Qualification" ToRole="Student_Details" />
+  </EntityType>
+  <EntityType Name="Student_Registration">
+    <Key>
+      <PropertyRef Name="registration_id" />
+    </Key>
+    <Property Name="registration_id" Type="Int32" Nullable="false" />
+    <Property Name="student_id" Type="Int32" />
+    <Property Name="registration_code" Type="Int32" />
+    <Property Name="course_id" Type="Int32" />
+    <Property Name="registration_date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Course_Details" Relationship="Self.fkcid" FromRole="Student_Registration" ToRole="Course_Details" />
+    <NavigationProperty Name="Student_Details" Relationship="Self.fkrig" FromRole="Student_Registration" ToRole="Student_Details" />
+    <NavigationProperty Name="Student_Payments" Relationship="Self.fkreg" FromRole="Student_Registration" ToRole="Student_Payments" />
+  </EntityType>
+  <Association Name="fkcid">
+    <End Role="Course_Details" Type="Self.Course_Details" Multiplicity="0..1" />
+    <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course_Details">
+        <PropertyRef Name="course_id" />
+      </Principal>
+      <Dependent Role="Student_Registration">
+        <PropertyRef Name="course_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkid">
+    <End Role="Student_Details" Type="Self.Student_Details" Multiplicity="0..1" />
+    <End Role="Student_Qualification" Type="Self.Student_Qualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student_Details">
+        <PropertyRef Name="student_id" />
+      </Principal>
+      <Dependent Role="Student_Qualification">
+        <PropertyRef Name="student_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkrig">
+    <End Role="Student_Details" Type="Self.Student_Details" Multiplicity="0..1" />
+    <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student_Details">
+        <PropertyRef Name="student_id" />
+      </Principal>
+      <Dependent Role="Student_Registration">
+        <PropertyRef Name="student_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkreg">
+    <End Role="Student_Registration" Type="Self.Student_Registration" Multiplicity="0..1" />
+    <End Role="Student_Payments" Type="Self.Student_Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student_Registration">
+        <PropertyRef Name="registration_id" />
+      </Principal>
+      <Dependent Role="Student_Payments">
+        <PropertyRef Name="registration_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Student_ApplicatinDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Course_Details" EntityType="Self.Course_Details" />
+    <EntitySet Name="Student_Details" EntityType="Self.Student_Details" />
+    <EntitySet Name="Student_Payments" EntityType="Self.Student_Payments" />
+    <EntitySet Name="Student_Qualification" EntityType="Self.Student_Qualification" />
+    <EntitySet Name="Student_Registration" EntityType="Self.Student_Registration" />
+    <AssociationSet Name="fkcid" Association="Self.fkcid">
+      <End Role="Course_Details" EntitySet="Course_Details" />
+      <End Role="Student_Registration" EntitySet="Student_Registration" />
+    </AssociationSet>
+    <AssociationSet Name="fkid" Association="Self.fkid">
+      <End Role="Student_Details" EntitySet="Student_Details" />
+      <End Role="Student_Qualification" EntitySet="Student_Qualification" />
+    </AssociationSet>
+    <AssociationSet Name="fkrig" Association="Self.fkrig">
+      <End Role="Student_Details" EntitySet="Student_Details" />
+      <End Role="Student_Registration" EntitySet="Student_Registration" />
+    </AssociationSet>
+    <AssociationSet Name="fkreg" Association="Self.fkreg">
+      <End Role="Student_Registration" EntitySet="Student_Registration" />
+      <End Role="Student_Payments" EntitySet="Student_Payments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

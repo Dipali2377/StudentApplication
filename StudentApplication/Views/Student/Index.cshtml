@@ -1,0 +1,150 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+    <title>Index</title>
+    @Styles.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+
+    <div class="panel panel-primary" >
+
+    <div class="panel-heading">
+
+        <center>
+
+            Student Details
+        </center>
+
+    </div> <!-- panel headidng closing div-->
+     
+    <div class="panel-body">
+        <div class="col-md-12">
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    <input type="text" placeholder="First Name" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    <input type="text" placeholder="Middle Name" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    <input type="text" placeholder="Last Name" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="form-group">
+
+                    <input type="date" ng-model="d.birth_date" placeholder="Birth Date" class="form-control" />
+
+                </div>
+            </div>
+        </div>
+
+
+        <hr />
+        <div class="col-md-12">
+
+            <div class="col-md-6">
+                <div class="form-group">
+
+                    <input type="email" placeholder="Enter your email address" class="form-control" />
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    <input type="text" ng-model="d.mobile_number" placeholder="Mobile Number" class="form-control" />
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-md-3">
+                <div class="form-group">
+
+                    <input type="number" ng-model="d.alternative_number" placeholder="Student Code" class="form-control" />
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="col-md-12">
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <textarea class="form-control">Local Adddress</textarea>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <input type="file" placeholder="choose file" class="form-control" />
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>  <!--panel body closing div-->
+
+
+
+
+
+
+
+    </div>  <!--main panel closing div-->
+
+</body>
+</html>
